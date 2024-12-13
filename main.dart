@@ -8,65 +8,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Theme Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: TextTheme(
-          headlineLarge: TextStyle(
-              fontSize: 72.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueAccent),
-          headlineMedium: TextStyle(
-              fontSize: 36.0, fontWeight: FontWeight.bold, color: Colors.blue),
-          bodyLarge: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.normal,
-              color: Colors.black87),
-        ),
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.blue,
-          textTheme: ButtonTextTheme.primary,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            textStyle: TextStyle(fontSize: 18),
-          ),
-        ),
-      ),
-      home: MyHomePage(),
+      home: ResponsiveHome(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class ResponsiveHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Themed AppBar'),
+        title: Text('MediaQueryResponsiveUI'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Hello,World!',
-              style: Theme.of(context).textTheme.headlineLarge,
+        child: Container(
+          width: screenWidth * 0.8,
+          height: screenHeight * 0.4,
+          color: Colors.blue,
+          child: Center(
+            child: Text(
+              screenWidth > 600 ? 'Large Screen Layout' : 'Small Screen Layout',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: screenWidth > 600 ? 24 : 16,
+              ),
             ),
-            SizedBox(height: 20),
-            Text(
-              'Welcome to the themed app.',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Click Me'),
-            ),
-          ],
+          ),
         ),
       ),
     );

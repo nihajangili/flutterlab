@@ -5,38 +5,99 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ResponsiveHome(),
+      title: 'Flutter Widgets Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomeScreen(),
     );
   }
 }
 
-class ResponsiveHome extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('MediaQueryResponsiveUI'),
+        title: Text('Flutter Widgets Example'),
       ),
-      body: Center(
-        child: Container(
-          width: screenWidth * 0.8,
-          height: screenHeight * 0.4,
-          color: Colors.blue,
-          child: Center(
-            child: Text(
-              screenWidth > 600 ? 'Large Screen Layout' : 'Small Screen Layout',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: screenWidth > 600 ? 24 : 16,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Welcome to Flutter!',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+                'This is an example of a simple Flutter app using various widgets.'),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                Icon(Icons.favorite, color: Colors.red),
+                SizedBox(width: 10),
+                Text('This is a row with an icon and text'),
+              ],
+            ),
+            SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                'This is a container with padding, decoration, and rounded corners.',
+                style: TextStyle(color: Colors.white),
               ),
             ),
-          ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Alert'),
+                      content: Text(
+                          'This is an alert dialog triggered by a button.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Close'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Text('Show Alert Dialog'),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: Center(
+                child: Text(
+                  'This text is centered and the space above is expanded to fill the available space.',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
       ),
     );
   }
